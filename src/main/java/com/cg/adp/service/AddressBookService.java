@@ -12,12 +12,26 @@ public class AddressBookService {
 	private AddressBook ab;
 	private Scanner sc;
 	private AddressBookKeeper abe;
+	private AddressBookKeeperService abks;
 
 	public AddressBookService() {
 		pcService=new PersonContactService();
 		ab=new AddressBook();
 		sc=new Scanner(System.in);
 		abe=new AddressBookKeeper();
+		abks=new AddressBookKeeperService();
+	}
+	public AddressBookKeeper getAbe() {
+		return abe;
+	}
+	public AddressBook getAb() {
+		return ab;
+	}
+	public PersonContactService getPcService() {
+		return pcService;
+	}
+	public AddressBookKeeperService getAbks() {
+		return abks;
 	}
 	
 	public void addAddressBook() {
