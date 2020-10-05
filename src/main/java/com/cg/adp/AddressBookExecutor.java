@@ -16,6 +16,21 @@ public class AddressBookExecutor {
 		System.out.println("Welcome to Address Book Program: ");
 		AddressBookExecutor abe = new AddressBookExecutor();
 		AddressBookService abService = new AddressBookService();
+		System.out.println("Add Address Book(s).");
+		boolean compuKeeper = true;
+		while (compuKeeper) {
+			System.out.println("1.Add address book.");
+			System.out.println("2.Exit.");
+			int op = abe.sc.nextInt();
+			switch (op) {
+			case 1:
+				abService.addAddressBook();
+				break;
+			case 2:
+				compuKeeper = false;
+				break;
+			}
+		}
 		boolean computation = true;
 		while (computation) {
 			System.out.println("1.Add contact. ");
@@ -35,7 +50,7 @@ public class AddressBookExecutor {
 				abService.removeContact();
 				break;
 			case 4:
-				computation=false;
+				computation = false;
 				break;
 			}
 
