@@ -67,7 +67,7 @@ public class PersonContactValidator {
 	}
 	public boolean zipValidator(long zip) {
 		String zip1 =Long.toString(zip);
-		Pattern pattern = Pattern.compile("\\d{6}");
+		Pattern pattern = Pattern.compile("^\\d{6}$");
 		Matcher matcher = pattern.matcher(zip1);
 		Boolean b = matcher.find();
 		try {
