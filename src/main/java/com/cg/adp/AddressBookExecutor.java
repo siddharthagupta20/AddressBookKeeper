@@ -2,9 +2,7 @@ package com.cg.adp;
 
 import java.util.Scanner;
 
-import com.cg.adp.dto.AddressBook;
-import com.cg.adp.dto.PersonContact;
-import com.cg.adp.service.PersonContactService;
+import com.cg.adp.service.AddressBookService;
 
 public class AddressBookExecutor {
 	private Scanner sc;
@@ -17,33 +15,28 @@ public class AddressBookExecutor {
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program: ");
 		AddressBookExecutor abe = new AddressBookExecutor();
-		PersonContactService pcService = new PersonContactService();
-		AddressBook ab = new AddressBook();
+		AddressBookService abService = new AddressBookService();
 		boolean computation = true;
 		while (computation) {
 			System.out.println("1.Add contact. ");
 			System.out.println("2.Edit Contact.");
+			System.out.println("3.Remove Contact");
 			int option = abe.sc.nextInt();
 
 			switch (option) {
 			case 1:
-				ab.getAddressBook().add(pcService.addContact());
+				abService.addContact();
 				break;
 			case 2:
-				String firstName = pcService.gettingFirstName();
-				int y = 0;
-				for (PersonContact x : ab.getAddressBook()) {
-					if (x.getFirstName().equalsIgnoreCase(firstName)) {
-						break;
-					}
-					y++;
-				}
-				pcService.updateContact(ab.getAddressBook().get(y));
+				abService.updateAddressBook();
+				break;
+			case 3:
+				abService.removeContact();
 				break;
 			default:
 				break;
 			}
-			System.out.println("Want to add more?(Y/N)");
+			System.out.println("See list again?(Y/N)");
 			char c = abe.sc.next().charAt(0);
 			if (c == 'y' || c == 'Y')
 				continue;
