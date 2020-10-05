@@ -10,11 +10,13 @@ public class PersonContactService {
 	private PersonContact personContact;
 	private Scanner sc;
 	private PersonContactValidator pcValidator;
+	private AddressBook ab;
 
 	public PersonContactService() {
 		personContact = new PersonContact();
 		sc = new Scanner(System.in);
 		pcValidator = new PersonContactValidator();
+		ab=new AddressBook();
 	}
 
 	public PersonContact getPersonContact() {
@@ -96,6 +98,13 @@ public class PersonContactService {
 		System.out.println("Enter person details: ");
 		personContact = new PersonContact(gettingFirstName(), gettingLastName(), gettingAddress(), gettingCity(),
 				gettingState(), gettingZip(), gettingPhoneNumber(), gettingEmail());
+		for(PersonContact p: ab.getAddressBook()) {
+			if(p.equals(personContact)) {
+				System.out.println("Duplicate Entry.");
+				return null;
+			}
+		}
+		
 		return personContact;
 	}
 

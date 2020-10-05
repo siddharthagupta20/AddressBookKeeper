@@ -26,7 +26,8 @@ public class AddressBookService {
 		abe.getAddressBookKeeper().add(ab);
 	}
 	public void addContact() {
-		ab.getAddressBook().add(pcService.addContact());
+		if(pcService.addContact()!=null)
+			ab.getAddressBook().add(pcService.addContact());
 	}
 	public void updateAddressBook() {
 		String firstName = pcService.gettingFirstName();
