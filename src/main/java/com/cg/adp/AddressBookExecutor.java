@@ -23,7 +23,8 @@ public class AddressBookExecutor {
 			System.out.println("1.Add address book.");
 			System.out.println("2.Search by city");
 			System.out.println("3.Search by state");
-			System.out.println("4.Exit.");
+			System.out.println("3.View by city");
+			System.out.println("5.View by state");
 			int op = abe.sc.nextInt();
 			switch (op) {
 			case 1:
@@ -37,10 +38,12 @@ public class AddressBookExecutor {
 				pcService = new PersonContactService();
 				abService.getAbks().searchByState(abService.getAbe(), pcService.gettingFirstName());
 				break;
-
 			case 4:
-				compuKeeper = false;
-				System.out.println("THANKS :)");
+				abService.getAbks().viewByCity();
+				break;
+
+			case 5:
+				abService.getAbks().viewByState();
 				break;
 			}
 			System.out.println("Enter the address book you want to work on:");
@@ -72,6 +75,15 @@ public class AddressBookExecutor {
 					}
 
 				}
+			} else
+				System.out.println("Cannot find address book.");
+
+			System.out.println("Want to continue exploring?(Y/N)");
+			char c = abe.sc.next().charAt(0);
+			if (!(c == 'Y' || c == 'y')) {
+				compuKeeper = false;
+				System.out.println("THANKS :)");
+				
 			}
 		}
 

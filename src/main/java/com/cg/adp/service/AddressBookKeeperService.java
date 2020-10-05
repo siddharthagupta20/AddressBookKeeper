@@ -71,13 +71,29 @@ public class AddressBookKeeperService {
 				}
 			}
 	}
-	public boolean searchAddressBook(AddressBookKeeper abKeeper,String name) {
-		for(AddressBook ab:abKeeper.getAddressBookKeeper())
-			if(ab.getAname().equalsIgnoreCase(name))
+
+	public boolean searchAddressBook(AddressBookKeeper abKeeper, String name) {
+		for (AddressBook ab : abKeeper.getAddressBookKeeper())
+			if (ab.getAname().equalsIgnoreCase(name))
 				return true;
 		return false;
-			
-				
-			
+
+	}
+
+	public void viewByCity() {
+		for(Map.Entry<String, ArrayList<PersonContact>> m:cityMap.entrySet()) {
+			System.out.println("City: "+m.getKey());
+			for(PersonContact p:m.getValue()) 
+				System.out.print(p.getFirstName()+" "+p.getLastName()+'\t');
+			}
+		}
+
+	public void viewByState() {
+		for (Map.Entry<String, ArrayList<PersonContact>> m : stateMap.entrySet()) {
+			System.out.println("State: " + m.getKey());
+			for (PersonContact p : m.getValue()) {
+				System.out.print(p.getFirstName() + " " + p.getLastName() + '\t');
+			}
+		}
 	}
 }
