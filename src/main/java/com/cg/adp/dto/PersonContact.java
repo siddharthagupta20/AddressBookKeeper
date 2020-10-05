@@ -97,4 +97,15 @@ public class PersonContact {
 				+ "\nState: " + state + "\nZip: " + zip + "\nPhone Number: " + phoneNumber + "\nEmail: " + email;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o == this)
+			return true;
+		if (!(o instanceof PersonContact))
+			return false;
+		PersonContact pc = (PersonContact) o;
+		return ((this.firstName==pc.firstName)&&(this.lastName==pc.lastName));
+
+	}
+
 }
