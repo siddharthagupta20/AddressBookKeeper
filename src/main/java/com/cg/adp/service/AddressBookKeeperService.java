@@ -81,12 +81,12 @@ public class AddressBookKeeperService {
 	}
 
 	public void viewByCity() {
-		for(Map.Entry<String, ArrayList<PersonContact>> m:cityMap.entrySet()) {
-			System.out.println("City: "+m.getKey());
-			for(PersonContact p:m.getValue()) 
-				System.out.print(p.getFirstName()+" "+p.getLastName()+'\t');
-			}
+		for (Map.Entry<String, ArrayList<PersonContact>> m : cityMap.entrySet()) {
+			System.out.println("City: " + m.getKey());
+			for (PersonContact p : m.getValue())
+				System.out.print(p.getFirstName() + " " + p.getLastName() + '\t');
 		}
+	}
 
 	public void viewByState() {
 		for (Map.Entry<String, ArrayList<PersonContact>> m : stateMap.entrySet()) {
@@ -96,4 +96,19 @@ public class AddressBookKeeperService {
 			}
 		}
 	}
+
+	public void countByCity() {
+		for (Map.Entry<String, ArrayList<PersonContact>> m : cityMap.entrySet()) {
+			System.out.println("City: " + m.getKey() + " Persons: " + m.getValue().size());
+
+		}
+	}
+
+	public void countByState() {
+		for (Map.Entry<String, ArrayList<PersonContact>> m : stateMap.entrySet()) {
+			System.out.println("State: " + m.getKey() + " Persons: " + m.getValue().size());
+
+		}
+	}
 }
+
