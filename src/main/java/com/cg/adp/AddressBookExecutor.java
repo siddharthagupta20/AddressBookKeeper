@@ -21,6 +21,7 @@ public class AddressBookExecutor {
 			System.out.println("1.Add contact. ");
 			System.out.println("2.Edit Contact.");
 			System.out.println("3.Remove Contact");
+			System.out.println("4.Exit.");
 			int option = abe.sc.nextInt();
 
 			switch (option) {
@@ -33,15 +34,10 @@ public class AddressBookExecutor {
 			case 3:
 				abService.removeContact();
 				break;
-			default:
+			case 4:
+				computation=false;
 				break;
 			}
-			System.out.println("See list again?(Y/N)");
-			char c = abe.sc.next().charAt(0);
-			if (c == 'y' || c == 'Y')
-				continue;
-			else
-				computation = false;
 
 		}
 
