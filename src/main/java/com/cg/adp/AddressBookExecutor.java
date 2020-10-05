@@ -25,6 +25,8 @@ public class AddressBookExecutor {
 			System.out.println("3.Search by state");
 			System.out.println("3.View by city");
 			System.out.println("5.View by state");
+			System.out.println("6.Count by city");
+			System.out.println("7.Count by state");
 			int op = abe.sc.nextInt();
 			switch (op) {
 			case 1:
@@ -44,6 +46,12 @@ public class AddressBookExecutor {
 
 			case 5:
 				abService.getAbks().viewByState();
+				break;
+			case 6:
+				abService.getAbks().countByCity();
+				break;
+			case 7:
+				abService.getAbks().countByState();
 				break;
 			}
 			System.out.println("Enter the address book you want to work on:");
