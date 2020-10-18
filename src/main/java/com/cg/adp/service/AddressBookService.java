@@ -6,8 +6,13 @@ import java.util.Scanner;
 import com.cg.adp.dto.AddressBook;
 import com.cg.adp.dto.AddressBookKeeper;
 import com.cg.adp.dto.PersonContact;
+import com.cg.adp.sortclasses.SortByCity;
+import com.cg.adp.sortclasses.SortByState;
+import com.cg.adp.sortclasses.SortByZip;
 
 public class AddressBookService {
+	
+	public enum SortingAddressBook{BY_CITY,BY_STATE,BY_ZIP}
 	
 	private PersonContactService pcService;
 	private AddressBook ab;
@@ -70,6 +75,14 @@ public class AddressBookService {
 	//sorting done after every addition of person contact to address book
 	public void sortAddressBook() {
 		Collections.sort(this.ab.getAddressBook());
+	}
+	public void sortAddressBookWithoutNaturalOrder(SortingAddressBook sort) {
+		if(sort==SortingAddressBook.BY_CITY)
+			Collections.sort(ab.getAddressBook(),new SortByCity());
+		if(sort==SortingAddressBook.BY_STATE)
+			Collections.sort(ab.getAddressBook(),new SortByState());
+		if(sort==SortingAddressBook.BY_ZIP)
+			Collections.sort(ab.getAddressBook(),new SortByZip());
 	}
 
 }
