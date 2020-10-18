@@ -28,5 +28,12 @@ public class AddressBook {
 	public String getAname() {
 		return aname;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder str=new StringBuilder();
+		str.append("Address Book: ").append(aname).append('\n').append(addressBook);
+		return str.toString();
+	}
 
 }
