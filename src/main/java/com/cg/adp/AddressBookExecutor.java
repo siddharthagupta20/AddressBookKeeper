@@ -27,6 +27,7 @@ public class AddressBookExecutor {
 			System.out.println("5.View by state");
 			System.out.println("6.Count by city");
 			System.out.println("7.Count by state");
+			System.out.println("8.View address book");
 			int op = abe.sc.nextInt();
 			switch (op) {
 			case 1:
@@ -52,6 +53,9 @@ public class AddressBookExecutor {
 				break;
 			case 7:
 				abService.getAbks().countByState();
+				break;
+			case 8:
+				System.out.println(abService.getAb());
 				break;
 			default:
 				System.out.println("Invalid Entry;");

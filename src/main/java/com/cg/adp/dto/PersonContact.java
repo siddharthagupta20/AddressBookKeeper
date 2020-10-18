@@ -1,6 +1,6 @@
 package com.cg.adp.dto;
 
-public class PersonContact {
+public class PersonContact implements Comparable<PersonContact> {
 
 	String firstName;
 	String lastName;
@@ -102,7 +102,7 @@ public class PersonContact {
 	@Override
 	public String toString() {
 		return "First Name: " + firstName + "\nLast Name: " + lastName + "\nAddress: " + address + "\nCity: " + city
-				+ "\nState: " + state + "\nZip: " + zip + "\nPhone Number: " + phoneNumber + "\nEmail: " + email;
+				+ "\nState: " + state + "\nZip: " + zip + "\nPhone Number: " + phoneNumber + "\nEmail: " + email+"\n-------------";
 	}
 
 	@Override
@@ -114,6 +114,12 @@ public class PersonContact {
 		PersonContact pc = (PersonContact) o;
 		return ((this.firstName==pc.firstName)&&(this.lastName==pc.lastName));
 
+	}
+	@Override
+	public int compareTo(PersonContact other) {
+		int compareFName=this.firstName.compareTo(other.firstName);
+		return(compareFName==0)?this.lastName.compareTo(other.lastName):compareFName;
+		
 	}
 
 }

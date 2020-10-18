@@ -1,5 +1,6 @@
 package com.cg.adp.service;
 
+import java.util.Collections;
 import java.util.Scanner;
 
 import com.cg.adp.dto.AddressBook;
@@ -42,6 +43,7 @@ public class AddressBookService {
 	public void addContact() {
 		if(pcService.addContact()!=null)
 			ab.getAddressBook().add(pcService.addContact());
+		this.sortAddressBook();
 	}
 	public void updateAddressBook() {
 		String firstName = pcService.gettingFirstName();
@@ -64,6 +66,10 @@ public class AddressBookService {
 			y++;
 		}
 		ab.getAddressBook().remove(y);
+	}
+	//sorting done after every addition of person contact to address book
+	public void sortAddressBook() {
+		Collections.sort(this.ab.getAddressBook());
 	}
 
 }
