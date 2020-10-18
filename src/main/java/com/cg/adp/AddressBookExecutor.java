@@ -28,6 +28,7 @@ public class AddressBookExecutor {
 			System.out.println("6.Count by city");
 			System.out.println("7.Count by state");
 			System.out.println("8.View address book");
+			System.out.println("9.Unnatural Order");
 			int op = abe.sc.nextInt();
 			switch (op) {
 			case 1:
@@ -56,6 +57,25 @@ public class AddressBookExecutor {
 				break;
 			case 8:
 				System.out.println(abService.getAb());
+				break;
+			case 9:
+				System.out.println("1.Sort by city.");
+				System.out.println("2.Sort by state.");
+				System.out.println("3.Sort by zip.");
+				int i=abe.sc.nextInt();
+				switch(i) {
+				case 1:
+					abService.sortAddressBookWithoutNaturalOrder(AddressBookService.SortingAddressBook.BY_CITY);
+					break;
+				case 2:
+					abService.sortAddressBookWithoutNaturalOrder(AddressBookService.SortingAddressBook.BY_STATE);
+					break;
+				case 3:
+					abService.sortAddressBookWithoutNaturalOrder(AddressBookService.SortingAddressBook.BY_ZIP);
+					break;
+				default:
+					System.out.println("Invalid entry.");
+				}
 				break;
 			default:
 				System.out.println("Invalid Entry;");
