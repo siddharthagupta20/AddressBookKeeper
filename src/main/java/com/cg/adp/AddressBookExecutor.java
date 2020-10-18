@@ -53,6 +53,8 @@ public class AddressBookExecutor {
 			case 7:
 				abService.getAbks().countByState();
 				break;
+			default:
+				System.out.println("Invalid Entry;");
 			}
 			System.out.println("Enter the address book you want to work on:");
 			String abName = abe.sc.next();
@@ -88,10 +90,9 @@ public class AddressBookExecutor {
 
 			System.out.println("Want to continue exploring?(Y/N)");
 			char c = abe.sc.next().charAt(0);
-			if (!(c == 'Y' || c == 'y')) {
+			if ((c == 'n' || c == 'N')) {
 				compuKeeper = false;
 				System.out.println("THANKS :)");
-				
 			}
 		}
 

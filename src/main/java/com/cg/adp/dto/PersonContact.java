@@ -13,6 +13,14 @@ public class PersonContact {
 
 	public PersonContact() {
 		// TODO Auto-generated constructor stub
+		this.firstName="";
+		this.lastName="";
+		this.address="";
+		this.city="";
+		this.state="";
+		this.zip=0l;
+		this.phoneNumber="";
+		this.email="";
 	}
 
 	public PersonContact(String firstname, String lastname, String address, String city, String state, long zip,

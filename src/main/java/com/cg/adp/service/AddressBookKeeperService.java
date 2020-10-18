@@ -19,96 +19,79 @@ public class AddressBookKeeperService {
 	}
 
 	public void searchByCity(AddressBookKeeper abKeeper, String fname) {
-		for (AddressBook ab : abKeeper.getAddressBookKeeper()) {
-			for (PersonContact pc : ab.getAddressBook()) {
-				if (cityMap.containsKey(pc.getCity()))
-					cityMap.put(pc.getCity(), null);
-				else
-					cityMap.put(pc.getCity(), null);
-			}
-		}
+
+		abKeeper.getAddressBookKeeper().stream().forEach(ab -> ab.getAddressBook().stream()
+				.filter(pc -> !cityMap.containsKey(pc.getCity()))
+					.forEach(pc -> cityMap.put(pc.getCity(), null)));
+
 		for (Map.Entry<String, ArrayList<PersonContact>> m : cityMap.entrySet()) {
 			ArrayList<PersonContact> pcCity = new ArrayList<PersonContact>();
-			for (AddressBook ab : abKeeper.getAddressBookKeeper()) {
-				for (PersonContact pc : ab.getAddressBook()) {
-					if (m.getKey() == pc.getCity())
-						pcCity.add(pc);
-				}
-			}
-			cityMap.put((String) m.getKey(), pcCity);
+			for (AddressBook ab : abKeeper.getAddressBookKeeper())
+				ab.getAddressBook().stream().filter(pc -> m.getKey() == pc.getCity())
+					.forEach(pc -> pcCity.add(pc));
+			cityMap.put(m.getKey(), pcCity);
 		}
+		
 		for (Map.Entry<String, ArrayList<PersonContact>> m : cityMap.entrySet()) {
-			for (PersonContact p : m.getValue()) {
-				if (fname == p.getFirstName())
-					System.out.println(m.getKey());
-			}
+			m.getValue().stream().filter(pc->fname==pc.getFirstName())
+				.forEach(System.out::println);
 		}
 	}
 
 	public void searchByState(AddressBookKeeper abKeeper, String fname) {
-		for (AddressBook ab : abKeeper.getAddressBookKeeper()) {
-			for (PersonContact pc : ab.getAddressBook()) {
-				if (stateMap.containsKey(pc.getCity()))
-					stateMap.put(pc.getState(), null);
-				else
-					stateMap.put(pc.getState(), null);
-			}
-		}
+
+		abKeeper.getAddressBookKeeper().stream().forEach(ab -> ab.getAddressBook().stream()
+				.filter(pc->!stateMap.containsKey(pc.getState()))
+					.forEach(pc->stateMap.put(pc.getState(),null)));
+		
 		for (Map.Entry<String, ArrayList<PersonContact>> m : cityMap.entrySet()) {
 			ArrayList<PersonContact> pcState = new ArrayList<PersonContact>();
-			for (AddressBook ab : abKeeper.getAddressBookKeeper()) {
-				for (PersonContact pc : ab.getAddressBook()) {
-					if (m.getKey() == pc.getState())
-						pcState.add(pc);
-				}
-			}
-			cityMap.put(m.getKey(), pcState);
+			for (AddressBook ab : abKeeper.getAddressBookKeeper()) 
+				ab.getAddressBook().stream().filter(pc -> m.getKey() == pc.getState())
+					.forEach(pc -> pcState.add(pc));
+			
+			stateMap.put(m.getKey(), pcState);
 		}
-		for (Map.Entry<String, ArrayList<PersonContact>> m : stateMap.entrySet())
-			for (PersonContact p : m.getValue()) {
-				if (fname == p.getFirstName()) {
-					System.out.println(m.getKey());
-				}
-			}
+		
+		stateMap.entrySet().stream().map(Map.Entry::getValue)
+			.forEach(pcList->pcList.stream()
+					.filter(pc->fname==pc.getFirstName())
+						.forEach(System.out::println));
 	}
 
 	public boolean searchAddressBook(AddressBookKeeper abKeeper, String name) {
-		for (AddressBook ab : abKeeper.getAddressBookKeeper())
-			if (ab.getAname().equalsIgnoreCase(name))
-				return true;
-		return false;
+		return abKeeper.getAddressBookKeeper().parallelStream()
+				.anyMatch(abk->name==abk.getAname());
 
 	}
 
 	public void viewByCity() {
 		for (Map.Entry<String, ArrayList<PersonContact>> m : cityMap.entrySet()) {
 			System.out.println("City: " + m.getKey());
-			for (PersonContact p : m.getValue())
-				System.out.print(p.getFirstName() + " " + p.getLastName() + '\t');
+			m.getValue().stream().forEach(System.out::println);
 		}
 	}
 
 	public void viewByState() {
 		for (Map.Entry<String, ArrayList<PersonContact>> m : stateMap.entrySet()) {
 			System.out.println("State: " + m.getKey());
-			for (PersonContact p : m.getValue()) {
-				System.out.print(p.getFirstName() + " " + p.getLastName() + '\t');
-			}
+			m.getValue().parallelStream().forEach(System.out::println);
 		}
 	}
 
 	public void countByCity() {
-		for (Map.Entry<String, ArrayList<PersonContact>> m : cityMap.entrySet()) {
-			System.out.println("City: " + m.getKey() + " Persons: " + m.getValue().size());
-
-		}
+		cityMap.entrySet().stream().filter(cities->
+			{System.out.print("City:"+cities.getKey());
+			return true;})
+			.map(Map.Entry::getValue).forEach(pcList->
+					System.out.println(" No of person: " + pcList.size()));
+		
 	}
 
 	public void countByState() {
-		for (Map.Entry<String, ArrayList<PersonContact>> m : stateMap.entrySet()) {
-			System.out.println("State: " + m.getKey() + " Persons: " + m.getValue().size());
-
-		}
+		stateMap.entrySet().stream().filter(states->
+		{ System.out.println("State: "+states.getKey());
+		return true;
+		}).map(Map.Entry::getValue).forEach(pcList->System.out.println("No of person:"+pcList.size()));
 	}
 }
-
