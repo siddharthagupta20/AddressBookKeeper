@@ -1,26 +1,36 @@
 package com.cg.adp.dto;
 
+import com.opencsv.bean.CsvBindByName;
+
 public class PersonContact implements Comparable<PersonContact> {
 
+	@CsvBindByName(column = "FirstName", required = true)
 	String firstName;
+	@CsvBindByName
 	String lastName;
+	@CsvBindByName
 	String address;
+	@CsvBindByName
 	String city;
+	@CsvBindByName
 	String state;
+	@CsvBindByName
 	long zip;
+	@CsvBindByName(column="PNo")
 	String phoneNumber;
+	@CsvBindByName(column = "Email", required = true)
 	String email;
 
 	public PersonContact() {
 		// TODO Auto-generated constructor stub
-		this.firstName="";
-		this.lastName="";
-		this.address="";
-		this.city="";
-		this.state="";
-		this.zip=0l;
-		this.phoneNumber="";
-		this.email="";
+		this.firstName = "";
+		this.lastName = "";
+		this.address = "";
+		this.city = "";
+		this.state = "";
+		this.zip = 0l;
+		this.phoneNumber = "";
+		this.email = "";
 	}
 
 	public PersonContact(String firstname, String lastname, String address, String city, String state, long zip,
@@ -101,8 +111,8 @@ public class PersonContact implements Comparable<PersonContact> {
 
 	@Override
 	public String toString() {
-		return  firstName + ", " + lastName + ", " + address + ", " + city
-				+ ", " + state + ",  " + zip + ", " + phoneNumber + ",  " + email+"\n";
+		return firstName + ", " + lastName + ", " + address + ", " + city + ", " + state + ",  " + zip + ", "
+				+ phoneNumber + ",  " + email + "\n";
 	}
 
 	@Override
@@ -112,14 +122,15 @@ public class PersonContact implements Comparable<PersonContact> {
 		if (!(o instanceof PersonContact))
 			return false;
 		PersonContact pc = (PersonContact) o;
-		return ((this.firstName==pc.firstName)&&(this.lastName==pc.lastName));
+		return ((this.firstName == pc.firstName) && (this.lastName == pc.lastName));
 
 	}
+
 	@Override
 	public int compareTo(PersonContact other) {
-		int compareFName=this.firstName.compareTo(other.firstName);
-		return(compareFName==0)?this.lastName.compareTo(other.lastName):compareFName;
-		
+		int compareFName = this.firstName.compareTo(other.firstName);
+		return (compareFName == 0) ? this.lastName.compareTo(other.lastName) : compareFName;
+
 	}
 
 }
