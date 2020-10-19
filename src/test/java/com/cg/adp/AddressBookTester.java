@@ -20,6 +20,8 @@ public class AddressBookTester {
 	public static final String AB2 = "AB2.txt";
 	public static final String AB3 = "AB3.csv";
 	public static final String AB4 = "AB4.csv";
+	public static final String AB5 = "AB5.json";
+	public static final String AB6 = "AB6.json";
 
 	@Test
 	public void givenAddressBookFileshouldRead() {
@@ -67,9 +69,33 @@ public class AddressBookTester {
 		abObj.setAddressBook(addressBookWrite);
 		AddressBookCSVIOService.writeCSV(p, abObj);
 		List<PersonContact> addressBookRead = AddressBookCSVIOService.readCSV(p);
-		System.out.println(addressBookRead);
 		assertEquals("The", addressBookRead.get(0).getFirstName());
-	
-		}
+
+	}
+
+	@Test
+	public void givenAddressBookJSONFileShoudRead() {
+		Path p = Paths.get(AB5);
+		List<PersonContact> addressBookRead = AddressBookJSON1OService.readJson(p);
+		System.out.println(addressBookRead);
+		assertEquals("Justin", addressBookRead.get(0).getFirstName());
+	}
+
+	@Test
+	public void givenAddressBookShouldWriteOnJSONFile() {
+		Path p = Paths.get(AB6);
+		PersonContact personToWrite = new PersonContact("The", "Weeknd", "DontKnow", "Cali", "SomeState", 666666l,
+				"00 9999999999", "weeknd.420@gmail.com");
+		PersonContact personToWrite2 = new PersonContact("Gerard", "Eazy", "DontKnow", "Cali", "SomeState", 666666l,
+				"00 9999999999", "weeknd.420@gmail.com");
+		List<PersonContact> addressBookWrite = new ArrayList<>();
+		addressBookWrite.add(personToWrite);
+		addressBookWrite.add(personToWrite2);
+		AddressBook abObj = new AddressBook();
+		abObj.setAddressBook(addressBookWrite);
+		AddressBookJSON1OService.writeJson(p, addressBookWrite);
+		List<PersonContact> addressBookRead = AddressBookJSON1OService.readJson(p);
+		assertEquals("The", addressBookRead.get(0).getFirstName());
+	}
 
 }

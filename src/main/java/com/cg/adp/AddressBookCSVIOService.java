@@ -5,7 +5,6 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -42,7 +41,7 @@ public class AddressBookCSVIOService {
 	}
 	public static void writeCSV(Path p, AddressBook addressBook) {
 		try {
-			Writer writer=Files.newBufferedWriter(Paths.get("G:\\Training\\Gradle1\\AddressBookProject\\com.cg.adp\\AB4.csv"));
+			Writer writer=Files.newBufferedWriter(p);
 			StatefulBeanToCsv<PersonContact> beanToCsv=new StatefulBeanToCsvBuilder<PersonContact>(writer)
 					.withQuotechar(CSVWriter.NO_QUOTE_CHARACTER).build();
 			beanToCsv.write(addressBook.getAddressBook());
