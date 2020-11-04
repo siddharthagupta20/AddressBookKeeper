@@ -4,6 +4,7 @@ import com.opencsv.bean.CsvBindByName;
 
 public class PersonContact implements Comparable<PersonContact> {
 
+	int id;
 	@CsvBindByName(column = "FirstName", required = true)
 	String firstName;
 	@CsvBindByName
@@ -16,7 +17,7 @@ public class PersonContact implements Comparable<PersonContact> {
 	String state;
 	@CsvBindByName
 	long zip;
-	@CsvBindByName(column="PNo")
+	@CsvBindByName(column = "PNo")
 	String phoneNumber;
 	@CsvBindByName(column = "Email", required = true)
 	String email;
@@ -43,6 +44,16 @@ public class PersonContact implements Comparable<PersonContact> {
 		this.zip = zip;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+	}
+
+	public PersonContact(int id, String firstname, String lastname, String address, String city, String state, long zip,
+			String phoneNumber, String email) {
+		this(firstname, lastname, address, city, state, zip, phoneNumber, email);
+		this.id = id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void setFirstName(String firstName) {
@@ -75,6 +86,10 @@ public class PersonContact implements Comparable<PersonContact> {
 
 	public String getCity() {
 		return city;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public void setState(String state) {

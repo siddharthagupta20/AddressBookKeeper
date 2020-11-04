@@ -9,10 +9,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.cg.adp.dto.AddressBook;
 import com.cg.adp.dto.PersonContact;
+import com.cg.adp.service.AddressBookService;
 
 public class AddressBookTester {
 
@@ -22,6 +24,12 @@ public class AddressBookTester {
 	public static final String AB4 = "AB4.csv";
 	public static final String AB5 = "AB5.json";
 	public static final String AB6 = "AB6.json";
+	public AddressBookService abService;
+	
+	@Before
+	public void setUp() {
+		abService=new AddressBookService();
+	}
 
 	@Test
 	public void givenAddressBookFileshouldRead() {
@@ -96,6 +104,11 @@ public class AddressBookTester {
 		AddressBookJSON1OService.writeJson(p, addressBookWrite);
 		List<PersonContact> addressBookRead = AddressBookJSON1OService.readJson(p);
 		assertEquals("The", addressBookRead.get(0).getFirstName());
+	}
+	@Test
+	public void givenAddressBookDB_ShouldRead() {
+		abService.getAddressBookFromDB();
+		assertEquals(5,abService.countEntries());
 	}
 
 }
