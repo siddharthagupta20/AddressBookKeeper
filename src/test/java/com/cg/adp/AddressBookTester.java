@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -25,10 +26,10 @@ public class AddressBookTester {
 	public static final String AB5 = "AB5.json";
 	public static final String AB6 = "AB6.json";
 	public AddressBookService abService;
-	
+
 	@Before
 	public void setUp() {
-		abService=new AddressBookService();
+		abService = new AddressBookService();
 	}
 
 	@Test
@@ -105,10 +106,20 @@ public class AddressBookTester {
 		List<PersonContact> addressBookRead = AddressBookJSON1OService.readJson(p);
 		assertEquals("The", addressBookRead.get(0).getFirstName());
 	}
+
 	@Test
 	public void givenAddressBookDB_ShouldRead() {
 		abService.getAddressBookFromDB();
-		assertEquals(5,abService.countEntries());
+		assertEquals(5, abService.countEntries());
+		System.out.println(abService.getAb().getAddressBook());
+	}
+
+	@Test
+	public void givenAddressBookDB_WhenUpdated_ShouldSyncWithDB() {
+		List<PersonContact> personToUpdate=Arrays.asList(new PersonContact("Ashraf", "Ghani", "gardens of babur", "Kabul", "Afghanistan",  555555l, "33 3333333333",  "ashraf-420@gmail.com"));
+		abService.getAddressBookFromDB();
+		abService.updateAddressBookinDB(personToUpdate);
+		assertTrue(abService.checkSync(personToUpdate.get(0).getFirstName(),personToUpdate.get(0).getEmail()));
 	}
 
 }

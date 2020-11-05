@@ -2,6 +2,7 @@ package com.cg.adp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -92,5 +93,22 @@ public class AddressBookDBService {
 			System.out.println("Cannot read address_books table.");
 			return null;
 		}
+	}
+
+	public void updateAddressBook(List<PersonContact> personToUpdate) {
+		String sql = "update person_contact set email= ? where first_name= ? ;";
+		List<PersonContact> ab = new ArrayList<>();
+		try (PreparedStatement read = this.getConnection().prepareStatement(sql)) {
+			for (PersonContact p : personToUpdate) {
+				read.setString(2, p.getFirstName());
+				read.setString(1,p.getEmail());
+				int result = read.executeUpdate();
+				System.out.println(result);
+			}
+		} catch (SQLException e) {
+			System.out.println("Cannot update.");
+
+		}
+
 	}
 }
