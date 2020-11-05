@@ -148,6 +148,13 @@ public class AddressBookService {
 		return abDBService.readAddressBookStateWise();
 	}
 
+	public void addPersonsToAddressBook(List<PersonContact> addressBookWrite) {
+		for(PersonContact p:addressBookWrite)
+			abDBService.insertInAddressBook(p);
+		this.getAb().setAddressBook(abDBService.readAddressBook());
+		
+	}
+
 	
 
 }

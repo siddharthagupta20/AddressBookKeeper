@@ -107,7 +107,6 @@ public class AddressBookDBService {
 				read.setString(2, p.getFirstName());
 				read.setString(1, p.getEmail());
 				int result = read.executeUpdate();
-				System.out.println(result);
 			}
 		} catch (SQLException e) {
 			System.out.println("Cannot update.");
@@ -189,8 +188,27 @@ public class AddressBookDBService {
 			}
 			return stateWiseCount;
 		} catch (SQLException e) {
-			System.out.println("Cannot read city wise data.");
+			System.out.println("Cannot read state wise data.");
 			return null;
 		}
+	}
+
+	public void insertInAddressBook(PersonContact personToWrite) {
+		String sql="insert into person_contact (first_name,last_name, email,ab_id,type_id,date_added)"
+				+ "values(?,?,?,?,?,?);";
+		try(PreparedStatement read=this.getConnection().prepareStatement(sql)){
+			read.setString(1,personToWrite.getFirstName());
+			read.setString(2,personToWrite.getLastName());
+			read.setString(3,personToWrite.getEmail());
+			read.setInt(4,1);
+			read.setInt(5,2);
+			read.setDate(6,Date.valueOf(LocalDate.now()));
+			int result=read.executeUpdate();
+		}
+		catch (SQLException e) {
+			System.out.println("Cannot insert in person_contact table.");
+			
+		}
+		
 	}
 }
