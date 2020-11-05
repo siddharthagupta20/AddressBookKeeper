@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -111,7 +112,6 @@ public class AddressBookTester {
 	public void givenAddressBookDB_ShouldRead() {
 		abService.getAddressBookFromDB();
 		assertEquals(5, abService.countEntries());
-		System.out.println(abService.getAb().getAddressBook());
 	}
 
 	@Test
@@ -120,6 +120,12 @@ public class AddressBookTester {
 		abService.getAddressBookFromDB();
 		abService.updateAddressBookinDB(personToUpdate);
 		assertTrue(abService.checkSync(personToUpdate.get(0).getFirstName(),personToUpdate.get(0).getEmail()));
+	}
+	
+	@Test 
+	public void givenAddressBookDB_WhenRetrievedDateWise_ShouldReturn() {
+		abService.getAddressBookFromDB(LocalDate.of(2018,01,01),LocalDate.now());
+		assertEquals(5,abService.countEntries());
 	}
 
 }

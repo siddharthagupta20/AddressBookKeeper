@@ -1,5 +1,6 @@
 package com.cg.adp.service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -114,6 +115,9 @@ public class AddressBookService {
 		this.getAb().setAname(abDBService.getAddressBookName());
 
 	}
+	public void getAddressBookFromDB(LocalDate startDate, LocalDate endDate) {
+		this.getAb().setAddressBook(abDBService.readAddressBook(startDate, endDate));
+	}
 
 	public long countEntries() {
 		return this.getAb().getAddressBook().stream().count();
@@ -132,5 +136,7 @@ public class AddressBookService {
 		}
 		return false;
 	}
+
+	
 
 }

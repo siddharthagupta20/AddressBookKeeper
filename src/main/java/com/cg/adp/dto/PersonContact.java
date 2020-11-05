@@ -1,5 +1,7 @@
 package com.cg.adp.dto;
 
+import java.time.LocalDate;
+
 import com.opencsv.bean.CsvBindByName;
 
 public class PersonContact implements Comparable<PersonContact> {
@@ -21,6 +23,7 @@ public class PersonContact implements Comparable<PersonContact> {
 	String phoneNumber;
 	@CsvBindByName(column = "Email", required = true)
 	String email;
+	LocalDate dateAdded;
 
 	public PersonContact() {
 		// TODO Auto-generated constructor stub
@@ -52,6 +55,12 @@ public class PersonContact implements Comparable<PersonContact> {
 		this.id = id;
 	}
 
+	public PersonContact(int id, String firstname, String lastname, String address, String city, String state, long zip,
+			String phoneNumber, String email, LocalDate dateAdded) {
+		this(id, firstname, lastname, address, city, state, zip, phoneNumber, email);
+		this.dateAdded = dateAdded;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -78,6 +87,10 @@ public class PersonContact implements Comparable<PersonContact> {
 
 	public String getAddress() {
 		return address;
+	}
+
+	public LocalDate getDateAdded() {
+		return dateAdded;
 	}
 
 	public void setCity(String city) {
@@ -118,6 +131,10 @@ public class PersonContact implements Comparable<PersonContact> {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public void setDateAdded(LocalDate dateAdded) {
+		this.dateAdded = dateAdded;
 	}
 
 	public String getEmail() {
