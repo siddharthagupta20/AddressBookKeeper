@@ -140,5 +140,18 @@ public class AddressBookTester {
 		Map<String, Integer> stateWiseCount=abService.getAddressBookFromDBStateWiseCount();
 		assertEquals((Integer)1,stateWiseCount.get("japan"));
 	}
+	
+	@Test
+	public void givenAddressBookDB_WhenAdded_ShouldSync() {
+		PersonContact personToWrite = new PersonContact("The", "Weeknd", "DontKnow", "Cali", "SomeState", 666666l,
+				"00 9999999999", "weeknd.420@gmail.com");
+		PersonContact personToWrite2 = new PersonContact("Gerard", "Eazy", "DontKnow", "Cali", "SomeState", 666666l,
+				"00 9999999999", "weeknd.420@gmail.com");
+		List<PersonContact> addressBookWrite = new ArrayList<>();
+		addressBookWrite.add(personToWrite);
+		addressBookWrite.add(personToWrite2);
+		abService.addPersonsToAddressBook(addressBookWrite);
+		assertTrue(abService.checkSync(addressBookWrite.get(0).getFirstName(),addressBookWrite.get(0).getEmail()));
+	}
 
 }
