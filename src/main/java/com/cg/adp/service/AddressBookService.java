@@ -3,6 +3,7 @@ package com.cg.adp.service;
 import java.util.Collections;
 import java.util.Scanner;
 
+import com.cg.adp.AddressBookDBService;
 import com.cg.adp.dto.AddressBook;
 import com.cg.adp.dto.AddressBookKeeper;
 import com.cg.adp.dto.PersonContact;
@@ -13,12 +14,15 @@ import com.cg.adp.sortclasses.SortByZip;
 public class AddressBookService {
 	
 	public enum SortingAddressBook{BY_CITY,BY_STATE,BY_ZIP}
+	public enum IOService{CONSOLE_IO,FILE_IO,DB_IO,REST_IO}
+	public enum FileTypeService{TEXT,CSV,JSON}
 	
 	private PersonContactService pcService;
 	private AddressBook ab;
 	private Scanner sc;
 	private AddressBookKeeper abe;
 	private AddressBookKeeperService abks;
+	private AddressBookDBService abDBService;
 
 	public AddressBookService() {
 		pcService=new PersonContactService();
@@ -26,6 +30,7 @@ public class AddressBookService {
 		sc=new Scanner(System.in);
 		abe=new AddressBookKeeper();
 		abks=new AddressBookKeeperService();
+		abDBService=AddressBookDBService.getInstance();
 	}
 	public AddressBookKeeper getAbe() {
 		return abe;
@@ -83,6 +88,15 @@ public class AddressBookService {
 			Collections.sort(ab.getAddressBook(),new SortByState());
 		if(sort==SortingAddressBook.BY_ZIP)
 			Collections.sort(ab.getAddressBook(),new SortByZip());
+	}
+	public void getAddressBookFromDB() {
+		this.getAb().setAddressBook(abDBService.readAddressBook());
+		//getting name of the 1st address_book
+		this.getAb().setAname(abDBService.getAddressBookName());
+		
+	}
+	public long countEntries() {
+		return this.getAb().getAddressBook().stream().count();
 	}
 
 }
