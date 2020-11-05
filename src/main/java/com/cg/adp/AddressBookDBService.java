@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.cg.adp.dto.PersonContact;
 
@@ -103,7 +105,7 @@ public class AddressBookDBService {
 		try (PreparedStatement read = this.getConnection().prepareStatement(sql)) {
 			for (PersonContact p : personToUpdate) {
 				read.setString(2, p.getFirstName());
-				read.setString(1,p.getEmail());
+				read.setString(1, p.getEmail());
 				int result = read.executeUpdate();
 				System.out.println(result);
 			}
@@ -115,8 +117,8 @@ public class AddressBookDBService {
 	}
 
 	public List<PersonContact> readAddressBook(LocalDate startDate, LocalDate endDate) {
-		Date start=Date.valueOf(startDate);
-		Date end=Date.valueOf(endDate);
+		Date start = Date.valueOf(startDate);
+		Date end = Date.valueOf(endDate);
 		String sql = "select * from person_contact where date_added between ? and ? ;";
 		List<PersonContact> ab = new ArrayList<>();
 		try (PreparedStatement read = this.getConnection().prepareStatement(sql)) {
@@ -156,6 +158,38 @@ public class AddressBookDBService {
 
 		} catch (SQLException e) {
 			System.out.println("Cannot read.");
+			return null;
+		}
+	}
+
+	public Map<String, Integer> readAddressBookCityWise() {
+		String sql = "select a.city , count(person_id) as count from person_contact pc\r\n" + "join address a	\r\n"
+				+ "	using(person_id)\r\n" + "    group by city;";
+		Map<String, Integer> cityWiseCount = new HashMap<>();
+		try (Statement read = this.getConnection().createStatement()) {
+			ResultSet result = read.executeQuery(sql);
+			while (result.next()) {
+				cityWiseCount.put(result.getString("city"), result.getInt("count"));
+			}
+			return cityWiseCount;
+		} catch (SQLException e) {
+			System.out.println("Cannot read city wise data.");
+			return null;
+		}
+	}
+
+	public Map<String, Integer> readAddressBookStateWise() {
+		String sql = "select a.state , count(person_id) as count from person_contact pc\r\n" + "join address a	\r\n"
+				+ "	using(person_id)\r\n" + "    group by state;";
+		Map<String, Integer> stateWiseCount = new HashMap<>();
+		try (Statement read = this.getConnection().createStatement()) {
+			ResultSet result = read.executeQuery(sql);
+			while (result.next()) {
+				stateWiseCount.put(result.getString("state"), result.getInt("count"));
+			}
+			return stateWiseCount;
+		} catch (SQLException e) {
+			System.out.println("Cannot read city wise data.");
 			return null;
 		}
 	}

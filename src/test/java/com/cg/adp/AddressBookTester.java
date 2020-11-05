@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -126,6 +127,18 @@ public class AddressBookTester {
 	public void givenAddressBookDB_WhenRetrievedDateWise_ShouldReturn() {
 		abService.getAddressBookFromDB(LocalDate.of(2018,01,01),LocalDate.now());
 		assertEquals(5,abService.countEntries());
+	}
+	
+	@Test
+	public void givenAddressBookDB_WhenRetrievedCityWise_ShouldReturn() {
+		Map<String, Integer> cityWiseCount=abService.getAddressBookFromDBCityWiseCount();
+		assertEquals((Integer)1,cityWiseCount.get("washington"));
+	}
+	
+	@Test
+	public void givenAddressBookDB_WhenRetrievedStateWise_ShouldReturn() {
+		Map<String, Integer> stateWiseCount=abService.getAddressBookFromDBStateWiseCount();
+		assertEquals((Integer)1,stateWiseCount.get("japan"));
 	}
 
 }

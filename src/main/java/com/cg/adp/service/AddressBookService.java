@@ -3,6 +3,7 @@ package com.cg.adp.service;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.cg.adp.AddressBookDBService;
@@ -135,6 +136,16 @@ public class AddressBookService {
 					return true;
 		}
 		return false;
+	}
+
+	public Map<String, Integer> getAddressBookFromDBCityWiseCount() {
+		
+		return abDBService.readAddressBookCityWise();
+	}
+
+	public Map<String, Integer> getAddressBookFromDBStateWiseCount() {
+		
+		return abDBService.readAddressBookStateWise();
 	}
 
 	
