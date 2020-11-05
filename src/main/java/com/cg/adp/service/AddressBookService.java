@@ -2,6 +2,7 @@ package com.cg.adp.service;
 
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -147,10 +148,39 @@ public class AddressBookService {
 		
 		return abDBService.readAddressBookStateWise();
 	}
-
+	
 	public void addPersonsToAddressBook(List<PersonContact> addressBookWrite) {
 		for(PersonContact p:addressBookWrite)
 			abDBService.insertInAddressBook(p);
+		this.getAb().setAddressBook(abDBService.readAddressBook());
+		
+	}
+
+	public void addPersonsToAddressBookWithThreads(List<PersonContact> addressBookWrite) {
+		
+		Map<String, Boolean> statusOfPersonBeingAdded=new HashMap<>();
+		addressBookWrite.stream().forEach((personToWrite)->{
+			
+			Runnable task=()->{
+				statusOfPersonBeingAdded.put(personToWrite.getFirstName(),false);
+				System.out.println("Person being added: "+ Thread.currentThread().getName());
+				abDBService.insertInAddressBook(personToWrite);
+				System.out.println("Person Added: "+Thread.currentThread().getName());
+				statusOfPersonBeingAdded.put(personToWrite.getFirstName(),true);
+			};
+			Thread thread=new Thread(task, personToWrite.getFirstName());
+			thread.start();
+		});
+		
+		while(statusOfPersonBeingAdded.containsValue(false)) {
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				System.out.println("Threads getting interrupted.");
+			}
+		}
+		
+		
 		this.getAb().setAddressBook(abDBService.readAddressBook());
 		
 	}
